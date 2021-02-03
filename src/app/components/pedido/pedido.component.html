@@ -1,0 +1,67 @@
+<!-- Editable table -->
+<div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Nuevo Pedido</h3>
+    <div class="card-body">
+        <div id="table" class="table-editable">
+            <span class="table-add float-right mb-3 mr-2">
+                <button class="btn btn-primary mr-2" (click)="nuevo()">Nuevo</button>
+                <button class="btn btn-danger" routerLink="/pedidos"><i class="fa fa-arrow-left"></i>Regresar</button>
+            </span>
+            <table class="table table-bordered table-responsive-md table-striped text-center">
+                <tr>
+                    <th class="text-center">nombre_producto</th>
+                    <th class="text-center">cantidad</th>
+                    <th class="text-center">precio</th>
+                    <th class="text-center">sujeto_iva</th>
+                    <th class="text-center">subtotal_0</th>
+                    <th class="text-center">subtotal_12</th>
+                    <th class="text-center">subtotal</th>
+                    <th class="text-center">total</th>
+                    <th class="text-center">acciones</th>
+                </tr>
+                <tr *ngFor="let producto of listaProducto; let id = index">
+                    <td>
+                        <span (keyup)="changeValue(id, 'nombre_producto', $event)"
+                            (blur)="actualizarLista(id, 'nombre_producto', $event)"
+                            contenteditable="true">{{producto.nombre_producto}}</span>
+                    </td>
+                    <td>
+                        <span contenteditable="true" (keyup)="changeValue(id, 'cantidad', $event)"
+                            (blur)="actualizarLista(id, 'cantidad', $event)">{{producto.cantidad}}</span>
+                    </td>
+                    <td>
+                        <span contenteditable="true" (keyup)="changeValue(id, 'precio', $event)"
+                            (blur)="actualizarLista(id, 'precio', $event)">{{producto.precio}}</span>
+                    </td>
+                    <td>
+                        <span contenteditable="true" (keyup)="changeValue(id, 'sujeto_iva', $event)"
+                            (blur)="actualizarLista(id, 'sujeto_iva', $event)">{{producto.sujeto_iva}}</span>
+                    </td>
+                    <td>
+                        <span contenteditable="false" (keyup)="changeValue(id, 'subtotal_12', $event)"
+                            (blur)="actualizarLista(id, 'subtotal_12', $event)">{{producto.subtotal_0}}</span>
+                    </td>
+                    <td>
+                        <span contenteditable="false" (keyup)="changeValue(id, 'subtotal_0', $event)"
+                            (blur)="actualizarLista(id, 'subtotal_0', $event)">{{producto.subtotal_12}}</span>
+                    </td>
+                    <td>
+                        <span contenteditable="false" (keyup)="changeValue(id, 'subtotal', $event)"
+                            (blur)="actualizarLista(id, 'subtotal', $event)">{{producto.subtotal}}</span>
+                    </td>
+                    <td>
+                        <span contenteditable="false" (keyup)="changeValue(id, 'total', $event)"
+                            (blur)="actualizarLista(id, 'total', $event)">{{producto.total}}</span>
+                    </td>
+                    <td>
+                        <span class="table-remove">
+                            <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0"
+                                (click)="eliminar(id)">Eliminar</button>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Editable table -->

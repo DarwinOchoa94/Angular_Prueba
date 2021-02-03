@@ -1,0 +1,64 @@
+<app-navigation></app-navigation>
+
+<div class="card mt-4">
+    <h4 class="card-header">Listado de Pedidos</h4>
+    <div class="card-body">
+      <div class="row">
+        <div class="col text-right">
+          <button routerLink="/pedido"
+                  class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+            Agregar
+          </button>
+        </div>
+      </div>
+      
+      
+      <table *ngIf="!cargando && pedidos.length > 0"
+             class="table mt-3 animated fadeIn faster animated fadeIn faster">
+             
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">nombre_cliente</th>
+            <th scope="col">cantidad_productos_ingresados</th>
+            <th scope="col">valor_subtotal_0</th>
+            <th scope="col">valor_subtotal_12</th>
+            <th scope="col">total_de_orden</th>
+            <th scope="col">fecha_hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pedido of pedidos; let i = index">
+            <td>{{ pedido.nombre_cliente }}</td>
+            <td>{{ pedido.cantidad_productos_ingresados }}</td>
+            <td>{{ pedido.valor_subtotal_0 }}</td>
+            <td>{{ pedido.valor_subtotal_12 }}</td>
+            <td>{{ pedido.total_de_orden }}</td>
+            <td>{{ pedido.fecha_hora }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div *ngIf="!cargando && pedidos.length === 0"
+           class="alert alert-warning text-center mt-3 animated fadeIn faster">
+          <h4 class="alert-heading">No hay registros</h4>
+          <p>
+            <i class="fa fa-exclamation fa-2x"></i>
+          </p>
+      </div>
+      
+      <div *ngIf="cargando" 
+           class="alert alert-info text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading">Cargando</h4>
+        <p>
+          <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+        </p>
+        <p class="mb-0">
+          Espere por favor
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  
+  
