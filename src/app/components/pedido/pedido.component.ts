@@ -21,11 +21,11 @@ export class PedidoComponent implements OnInit {
 
   listaProducto: PedidoModel[] = [
     {
-      id: 1,
-      nombre_producto: 'Lapices',
+      id: null,
+      nombre_producto: null,
       cantidad: null,
       precio: null,
-      sujeto_iva: true,
+      sujeto_iva: null,
       subtotal_0: null,
       subtotal_12: null,
       iva: null,
@@ -34,7 +34,8 @@ export class PedidoComponent implements OnInit {
     }
   ]
 
-  awaitingPersonList: Array<any> = [ {id: 1}, {id: 2}, {id:3}
+  awaitingPersonList: Array<any> = [ 
+    //{id: 1}, {id: 2}, {id:3}
     //{ id: 6, name: 'George Vega', age: 28, companyName: 'Classical', country: 'Russia', city: 'Moscow' },
   ];
 
@@ -64,10 +65,11 @@ export class PedidoComponent implements OnInit {
   }
 
   nuevo() {
-    // const producto = this.listaProducto[0];
-    this.listaProducto.push(this.listaProducto[0]);
+    var producto = this.listaProducto[0];
+    producto.id = this.listaProducto.length + 1;
+    this.listaProducto.push(producto);
     //this.listaProducto.splice(0, 1);
-    //console.log(this.listaProducto);
+    console.log(producto);
   }
 
   actualizarLista(id: number, property: string, event: any) {

@@ -10,6 +10,7 @@
             </span>
             <table class="table table-bordered table-responsive-md table-striped text-center">
                 <tr>
+                    <th class="text-center">id</th>
                     <th class="text-center">nombre_producto</th>
                     <th class="text-center">cantidad</th>
                     <th class="text-center">precio</th>
@@ -21,6 +22,9 @@
                     <th class="text-center">acciones</th>
                 </tr>
                 <tr *ngFor="let producto of listaProducto; let id = index">
+                    <td>
+                        <span contenteditable="false">{{producto.id}}</span>
+                    </td>
                     <td>
                         <span (keyup)="changeValue(id, 'nombre_producto', $event)"
                             (blur)="actualizarLista(id, 'nombre_producto', $event)"

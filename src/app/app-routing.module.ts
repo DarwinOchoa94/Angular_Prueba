@@ -8,12 +8,15 @@ import { ProductoComponent } from './components/producto/producto.component';
 import { ProductosComponent } from './components/productos/productos.component';
 
 const routes: Routes = [
+  {path: '', pathMatch:'full', redirectTo:'login'},
   {path: 'login', component: LoginComponent},
   {path: 'producto', component: ProductoComponent},
   {path: 'productos', component: ProductosComponent},
   {path: 'pedidos', component: PedidosComponent},
   {path: 'pedido', component: PedidoComponent},
   {path: 'datatable', component: DatatableComponent},
+
+  {path: '**', redirectTo:'login'},
 ];
 
 @NgModule({

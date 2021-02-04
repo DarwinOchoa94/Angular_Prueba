@@ -15,6 +15,7 @@ export class PedidosComponent implements OnInit {
   constructor(private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
+    localStorage.getItem('logeado')
     this.cargando = true;
     this.pedidoService.listar()
     .then((arrPedidos) =>{

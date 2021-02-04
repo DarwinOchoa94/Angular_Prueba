@@ -12,6 +12,16 @@ export class PedidoModel {
     total: number;
 
     constructor() {
+      this.id = null,
+      this.nombre_producto = null,
+      this.cantidad = null,
+      this.precio = null,
+      this.sujeto_iva = true,
+      this.subtotal_0 = null,
+      this.subtotal_12 = null,
+      this.iva = null,
+      this.subtotal = null,
+      this.total = null
     }
 
 }
