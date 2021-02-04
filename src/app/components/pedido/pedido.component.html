@@ -27,18 +27,18 @@
                     </td>
                     <td>
                         <span (keyup)="changeValue(id, 'nombre_producto', $event)"
-                            (blur)="actualizarLista(id, 'nombre_producto', $event)"
-                            contenteditable="true">{{producto.nombre_producto}}</span>
+                        (blur)="actualizarLista(id, 'nombre_producto', $event)"
+                        contenteditable="true">{{producto.nombre_producto}}</span>
                     </td>
                     <td>
                         <span contenteditable="true" (keyup)="changeValue(id, 'cantidad', $event)"
                             (blur)="actualizarLista(id, 'cantidad', $event)"
-                            (keyup)="calcularTotal(id, 'total', $event)">{{producto.cantidad}}</span>
+                            (keyup)="calcularSubtotales(id, 'cantidad', $event)">{{producto.cantidad}}</span>
                     </td>
                     <td>
                         <span contenteditable="true" (keyup)="changeValue(id, 'precio', $event)"
                             (blur)="actualizarLista(id, 'precio', $event)"
-                            (keyup)="calcularTotal(id, 'total', $event)">{{producto.precio}}</span>
+                            (keyup)="calcularSubtotales(id, 'total', $event)">{{producto.precio}}</span>
                     </td>
                     <td>
                         <span contenteditable="true" (keyup)="changeValue(id, 'sujeto_iva', $event)"
@@ -69,7 +69,7 @@
                 </tr>
             </table>
             <span class="table-add float-right mb-3 mr-2">
-                <button class="btn btn-primary mr-2" (click)="llenarPedidos()">Guardar</button>
+                <button class="btn btn-primary mr-2" (click)="guardar()">Guardar</button>
             </span>
         </div>
     </div>

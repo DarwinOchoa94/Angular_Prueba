@@ -1,5 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { MatTable } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+
+import { DialogComponent } from '../dialog/dialog.component'
+export interface UsersData {
+  name: string;
+  id: number;
+}
+
+
+const ELEMENT_DATA: UsersData[] = [
+  {id: 1560608769632, name: 'Artificial Intelligence'},
+  {id: 1560608796014, name: 'Machine Learning'},
+  {id: 1560608787815, name: 'Robotic Process Automation'},
+  {id: 1560608805101, name: 'Blockchain'}
+];
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
@@ -7,50 +23,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DatatableComponent implements OnInit {
 
-  editField: string;
-    personList: Array<any> = [
-      // { id: 1, name: 'Aurelia Vega', age: 30, companyName: 'Deepends', country: 'Spain', city: 'Madrid' },
-      // { id: 2, name: 'Guerra Cortez', age: 45, companyName: 'Insectus', country: 'USA', city: 'San Francisco' },
-      // { id: 3, name: 'Guadalupe House', age: 26, companyName: 'Isotronic', country: 'Germany', city: 'Frankfurt am Main' },
-      // { id: 4, name: 'Aurelia Vega', age: 30, companyName: 'Deepends', country: 'Spain', city: 'Madrid' },
-      // { id: 5, name: 'Elisa Gallagher', age: 31, companyName: 'Portica', country: 'United Kingdom', city: 'London' },
-    ];
+  displayedColumns: string[] = ['id', 'name', 'action'];
+  dataSource = ELEMENT_DATA;
 
-    awaitingPersonList: Array<any> = [ {id: 1}, {id:2}, {id:3}
-      // { id: 6, name: 'George Vega', age: 28, companyName: 'Classical', country: 'Russia', city: 'Moscow' },
-      // { id: 7, name: 'Mike Low', age: 22, companyName: 'Lou', country: 'USA', city: 'Los Angeles' },
-      // { id: 8, name: 'John Derp', age: 36, companyName: 'Derping', country: 'USA', city: 'Chicago' },
-      // { id: 9, name: 'Anastasia John', age: 21, companyName: 'Ajo', country: 'Brazil', city: 'Rio' },
-      // { id: 10, name: 'John Maklowicz', age: 36, companyName: 'Mako', country: 'Poland', city: 'Bialystok' },
-    ];
+  @ViewChild(MatTable,{static:true}) table: MatTable<any>;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
   }
 
-  updateList(id: number, property: string, event: any) {
-      const editField = event.target.textContent;
-      this.personList[id][property] = editField;
-      console.log(this.personList);
-    }
+  openDialog(action,obj) {
+    obj.action = action;
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data:obj
+    });
 
-    remove(id: any) {
-      this.awaitingPersonList.push(this.personList[id]);
-      this.personList.splice(id, 1);
-    }
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.event == 'Add'){
+        this.addRowData(result.data);
+      }else if(result.event == 'Update'){
+        this.updateRowData(result.data);
+      }else if(result.event == 'Delete'){
+        this.deleteRowData(result.data);
+      }
+    });
+  }
 
-    add() {
-      //if (this.awaitingPersonList.length > 0) {
-        const person = this.awaitingPersonList[0];
-        this.personList.push(person);
-        this.awaitingPersonList.splice(0, 1);
-        console.log(this.personList);
-        console.log(this.awaitingPersonList);
-      //}
-    }
-
-    changeValue(id: number, property: string, event: any) {
-      this.editField = event.target.textContent;
-    }
+  addRowData(row_obj){
+    var d = new Date();
+    this.dataSource.push({
+      id:d.getTime(),
+      name:row_obj.name
+    });
+    this.table.renderRows();
+    
+  }
+  updateRowData(row_obj){
+    this.dataSource = this.dataSource.filter((value,key)=>{
+      if(value.id == row_obj.id){
+        value.name = row_obj.name;
+      }
+      return true;
+    });
+  }
+  deleteRowData(row_obj){
+    this.dataSource = this.dataSource.filter((value,key)=>{
+      return value.id != row_obj.id;
+    });
+  }
 }

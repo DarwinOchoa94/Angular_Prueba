@@ -15,6 +15,7 @@ export class PedidoService {
    crearPedido(pedido): any{
     this.arrPedidos.push(pedido);
     console.log(this.arrPedidos);
+    localStorage.setItem('arrPedidos', JSON.stringify(this.arrPedidos))
   }
 
    listar(): Promise<PedidosModel[]>{
