@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoModel } from 'src/app/models/pedido.model';
+import { PedidosModel } from 'src/app/models/pedidos.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -15,6 +16,8 @@ export class PedidoComponent implements OnInit {
 
   editField: string;
   personList: Array<any> = [];
+
+  Pedidos: PedidosModel[] = [];
 
   listaProducto: PedidoModel[] = [
     {
@@ -64,7 +67,7 @@ export class PedidoComponent implements OnInit {
     // const producto = this.listaProducto[0];
     this.listaProducto.push(this.listaProducto[0]);
     //this.listaProducto.splice(0, 1);
-    console.log(this.listaProducto);
+    //console.log(this.listaProducto);
   }
 
   actualizarLista(id: number, property: string, event: any) {
@@ -77,11 +80,20 @@ export class PedidoComponent implements OnInit {
     this.listaProducto.splice(id, 1)
   }
 
-  calcularTotal(formProducto: NgForm){
+  calcularTotal(id: number, property){
+    this.listaProducto[id][property] = this.listaProducto[id].cantidad * this.listaProducto[id].precio
+    console.log("***CALCULAR TOTAL",this.listaProducto);
+  }
+
+  llenarObjeto(){
+  }
+
+  llenarPedidos(){
+    console.log(this.Pedidos[0]);
     
   }
   
-  guardar(formProducto: NgForm){
+  guardar(){
 
     Swal.fire({
       title: 'Espere',
@@ -91,9 +103,10 @@ export class PedidoComponent implements OnInit {
     });
     Swal.showLoading();
 
-    this.pedidoService.crearPedido(formProducto.value)
+    this.llenarPedidos();
+    this.pedidoService.crearPedido(this.Pedidos[0])
     this.router.navigate(['/pedidos'])
-    console.log(formProducto.value);
+    console.log(this.Pedidos[0]);
 
     Swal.fire({
       //title: this.pedido.descripcion,

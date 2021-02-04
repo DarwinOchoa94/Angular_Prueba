@@ -1,4 +1,5 @@
-<!-- Editable table -->
+<app-navigation></app-navigation>
+
 <div class="card">
     <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Nuevo Pedido</h3>
     <div class="card-body">
@@ -27,11 +28,13 @@
                     </td>
                     <td>
                         <span contenteditable="true" (keyup)="changeValue(id, 'cantidad', $event)"
-                            (blur)="actualizarLista(id, 'cantidad', $event)">{{producto.cantidad}}</span>
+                            (blur)="actualizarLista(id, 'cantidad', $event)"
+                            (keyup)="calcularTotal(id, 'total', $event)">{{producto.cantidad}}</span>
                     </td>
                     <td>
                         <span contenteditable="true" (keyup)="changeValue(id, 'precio', $event)"
-                            (blur)="actualizarLista(id, 'precio', $event)">{{producto.precio}}</span>
+                            (blur)="actualizarLista(id, 'precio', $event)"
+                            (keyup)="calcularTotal(id, 'total', $event)">{{producto.precio}}</span>
                     </td>
                     <td>
                         <span contenteditable="true" (keyup)="changeValue(id, 'sujeto_iva', $event)"
@@ -39,11 +42,11 @@
                     </td>
                     <td>
                         <span contenteditable="false" (keyup)="changeValue(id, 'subtotal_12', $event)"
-                            (blur)="actualizarLista(id, 'subtotal_12', $event)">{{producto.subtotal_0}}</span>
+                            (blur)="actualizarLista(id, 'subtotal_0', $event)">{{producto.subtotal_0}}</span>
                     </td>
                     <td>
                         <span contenteditable="false" (keyup)="changeValue(id, 'subtotal_0', $event)"
-                            (blur)="actualizarLista(id, 'subtotal_0', $event)">{{producto.subtotal_12}}</span>
+                            (blur)="actualizarLista(id, 'subtotal_12', $event)">{{producto.subtotal_12}}</span>
                     </td>
                     <td>
                         <span contenteditable="false" (keyup)="changeValue(id, 'subtotal', $event)"
@@ -51,7 +54,7 @@
                     </td>
                     <td>
                         <span contenteditable="false" (keyup)="changeValue(id, 'total', $event)"
-                            (blur)="actualizarLista(id, 'total', $event)">{{producto.total}}</span>
+                            (blur)="calcularTotal(id, 'total', $event)">{{producto.total}}</span>
                     </td>
                     <td>
                         <span class="table-remove">
@@ -61,6 +64,9 @@
                     </td>
                 </tr>
             </table>
+            <span class="table-add float-right mb-3 mr-2">
+                <button class="btn btn-primary mr-2" (click)="llenarPedidos()">Guardar</button>
+            </span>
         </div>
     </div>
 </div>
