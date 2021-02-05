@@ -20,7 +20,7 @@ export class PedidosComponent implements OnInit {
     this.cargando = true;
     this.pedidoService.listar()
     .then((arrPedidos) =>{
-      if (arrPedidos.length == 0){
+      if (arrPedidos.length < 0){
         this.pedidos = this.pedidosLocal
         this.cargando = false;
       }

@@ -32,10 +32,12 @@
                         <input class="form-control-sm" type="text" placeholder="nombre_producto" (blur)="actualizarListaV2(id, 'nombre_producto', $event)">
                     </td>
                     <td>
-                        <input class="form-control-sm " type="number" placeholder="cantidad" (blur)="actualizarListaV2(id, 'cantidad', $event)">
+                        <input class="form-control-sm " type="number" placeholder="cantidad" 
+                        (blur)="actualizarListaV2(id, 'cantidad', $event); calcularSubtotales(id, 'subtotal_0', $event)">
                     </td>
                     <td>
-                        <input class="form-control-sm" type="number" placeholder="precio" (blur)="actualizarListaV2(id, 'precio', $event)">
+                        <input class="form-control-sm" type="number" placeholder="precio" 
+                        (blur)="actualizarListaV2(id, 'precio', $event); calcularSubtotales(id, 'subtotal_0', $event)">
                     </td>
                     <td>
                         <input class="form-control" type="checkbox" 

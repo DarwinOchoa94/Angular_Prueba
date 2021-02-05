@@ -1,6 +1,7 @@
 export class PedidoModel {
 
     id: number;
+    nombre_cliente: string;
     nombre_producto: string;
     cantidad: number;
     precio: number;
@@ -13,6 +14,7 @@ export class PedidoModel {
 
     constructor() {
       this.id = null,
+      this.nombre_cliente = null,
       this.nombre_producto = null,
       this.cantidad = null,
       this.precio = null,

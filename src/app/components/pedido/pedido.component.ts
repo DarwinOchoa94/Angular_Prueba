@@ -83,6 +83,8 @@ export class PedidoComponent implements OnInit {
       }
       this.listaProducto[id].subtotal_0 = this.listaProducto[id].precio * this.listaProducto[id].cantidad;
       this.listaProducto[id].total = this.listaProducto[id].subtotal_0;
+      this.listaProducto[id].subtotal_12 = 0;
+      this.listaProducto[id].iva = 0;
     }
   }
 
