@@ -12,7 +12,6 @@ export class LoginService {
   }
 
   login(usuario: string, contrasena: string){
-    //console.log('*** en servicio', usuario, contrasena);
     if (usuario == 'admin' && contrasena == 'admin'){
       this.valido = 'ok'
       localStorage.setItem('logeado', this.valido)

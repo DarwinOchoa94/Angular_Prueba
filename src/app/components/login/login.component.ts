@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { loginModel } from 'src/app/models/login.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private loginService: LoginService
   ) {}
@@ -29,23 +28,18 @@ export class LoginComponent implements OnInit {
       usuario: ['', Validators.required],
       contrasena: ['', Validators.required]
     });
-    console.log(localStorage.getItem('logeado'));
     
     if (localStorage.getItem('logeado') == 'ok')
-    {
-      console.log('ya logeado');
-      
+    { 
       this.router.navigate(['/pedidos'])
     }
   }
 
-  // convenience getter for easy access to form fields
   get form() { return this.loginForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
@@ -54,12 +48,15 @@ export class LoginComponent implements OnInit {
     this.valido = this.loginService.login(this.form.usuario.value, this.form.contrasena.value)
     if (this.valido == 'ok'){
       this.router.navigate(['/pedidos'])
-      this.loading = true;
-      console.log(localStorage.getItem('logeado'));
-      
+      this.loading = false;  
     }
     else{
-      this.loading = false;
+      Swal.fire({
+        title: 'Error',
+        text: 'Usuario o Contraseña Incorrecta',
+        type: 'error',
+        allowOutsideClick: false
+      });
     }
   }
 }

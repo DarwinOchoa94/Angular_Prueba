@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidoModel } from 'src/app/models/pedido.model';
 import { PedidosModel } from 'src/app/models/pedidos.model';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import { PedidoService } from 'src/app/services/pedido.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pedido',
@@ -13,119 +12,99 @@ import { PedidoService } from 'src/app/services/pedido.service';
 })
 export class PedidoComponent implements OnInit {
 
-  valor_subtotal_0: number = null;
-  valor_subtotal_12: number = null;
-  total_de_orden: number = null;
+  valor_subtotal_0: number = 0;
+  valor_subtotal_12: number = 0;
+  total_de_orden: number = 0;
   fecha_hora = new Date;
 
+  objPedido: any = {}
+
   editField: string;
-  personList: Array<any> = [];
 
   pedidos: PedidosModel[] = [];
 
-  listaProducto: PedidoModel[] = [
-    {
-      id: 1,
-      nombre_producto: 'TEST',
-      cantidad: 10,
-      precio: 5,
-      sujeto_iva: true,
-      subtotal_0: 50,
-      subtotal_12: null,
-      iva: 5,
-      subtotal: 20,
-      total: 25
-    }
-  ]
-
-  awaitingPersonList: Array<any> = [
-    //{id: 1}, {id: 2}, {id:3}
-    //{ id: 6, name: 'George Vega', age: 28, companyName: 'Classical', country: 'Russia', city: 'Moscow' },
-  ];
+  listaProducto: PedidoModel[] = []
 
   constructor(private pedidoService: PedidoService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  updateList(id: number, property: string, event: any) {
-    const editField = event.target.textContent;
-    this.personList[id][property] = editField;
-    console.log(this.personList);
-
-  }
-
-  changeValue(id: number, property: string, event: any) {
-    this.editField = event.target.textContent;
-  }
-
-  remove(id: any) {
-    this.awaitingPersonList.push(this.personList[id]);
-    this.personList.splice(id, 1);
-  }
-
-  add() {
-    //if (this.awaitingPersonList.length > 0) {
-    const person = this.awaitingPersonList[0];
-    this.personList.push(person);
-    this.awaitingPersonList.splice(0, 1);
-    //}
-  }
-
   nuevo() {
     var producto = this.listaProducto[0];
-    producto.id = this.listaProducto.push(producto);
-    //this.listaProducto.splice(0, 1);
-    console.log(producto);
+    producto.id = this.listaProducto.length
+    this.listaProducto.push(producto);
+  }
+
+  nuevoV2() {
+    var objPedido: any = {}
+    objPedido.id = this.listaProducto.length + 1
+    this.listaProducto.push(objPedido)
+  }
+
+  actualizarCliente(event: any) {
+    const editField = event.target.value;
+    this.objPedido.nombre_cliente = editField
   }
 
   actualizarLista(id: number, property: string, event: any) {
     const editField = event.target.textContent;
     this.listaProducto[id][property] = editField;
-    console.log(this.listaProducto);
+  }
+
+  actualizarListaV2(id: number, property: string, event: any) {
+    if (property == 'sujeto_iva') {
+      const editField = event.target.checked;
+      this.listaProducto[id][property] = editField;
+    }
+    else {
+      const editField = event.target.value;
+      this.listaProducto[id][property] = editField;
+    }
   }
 
   eliminar(id: number) {
     this.listaProducto.splice(id, 1)
   }
 
-  calcularSubtotales(id: number, property: string){
-    if (this.listaProducto[id].precio != null && this.listaProducto[id].cantidad != null){
-      console.log('en true');
+  calcularSubtotales(id: number, property: string) {
+    if (this.listaProducto[id].sujeto_iva == true) {
+      if(this.listaProducto[id].subtotal_0 != null){
+        this.listaProducto[id].subtotal_0 = 0;
+      }
+      this.listaProducto[id].subtotal_12 = this.listaProducto[id].precio * this.listaProducto[id].cantidad;
+      this.listaProducto[id].iva = this.listaProducto[id].subtotal_12 * 0.12;
+      this.listaProducto[id].total = this.listaProducto[id].subtotal_12 + this.listaProducto[id].iva;
     }
-    else{
-      console.log('en false');
-      
+    else {
+      if(this.listaProducto[id].subtotal_12 != null){
+        this.listaProducto[id].subtotal_12 = 0;
+        this.listaProducto[id].iva = 0;
+      }
+      this.listaProducto[id].subtotal_0 = this.listaProducto[id].precio * this.listaProducto[id].cantidad;
+      this.listaProducto[id].total = this.listaProducto[id].subtotal_0;
     }
   }
 
   calcularTotales() {
     this.fecha_hora.toLocaleDateString();
-    console.log(this.fecha_hora);
-    
     this.listaProducto.forEach(element => {
       this.valor_subtotal_0 += element.subtotal_0;
       this.valor_subtotal_12 += element.subtotal_12;
       this.total_de_orden = element.total + this.total_de_orden;
     });
-    console.log(this.valor_subtotal_0, this.valor_subtotal_12, this.total_de_orden);
   }
 
   llenarObjeto() {
     this.pedidos[0] = {
       id: null,
-      nombre_cliente: null,
+      nombre_cliente: this.objPedido.nombre_cliente,
       cantidad_productos_ingresados: this.listaProducto.length,
       valor_subtotal_0: this.valor_subtotal_0,
       valor_subtotal_12: this.valor_subtotal_12,
       total_de_orden: this.total_de_orden,
       fecha_hora: this.fecha_hora.toString(),
     }
-  }
-
-  llenarPedidos() {
-    console.log(this.pedidos[0]);
-
   }
 
   guardar() {
@@ -141,10 +120,7 @@ export class PedidoComponent implements OnInit {
     this.llenarObjeto();
     this.pedidoService.crearPedido(this.pedidos[0])
     this.router.navigate(['/pedidos'])
-    console.log(this.pedidos[0]);
-
     Swal.fire({
-      //title: this.pedido.descripcion,
       text: 'Se guardo correctamente',
       type: 'success'
     });

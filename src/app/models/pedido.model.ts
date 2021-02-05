@@ -8,20 +8,20 @@ export class PedidoModel {
     subtotal_0: number;
     subtotal_12: number;
     iva: number;
-    subtotal: number;
     total: number;
+    totalPedido: number;
 
     constructor() {
       this.id = null,
       this.nombre_producto = null,
       this.cantidad = null,
       this.precio = null,
-      this.sujeto_iva = true,
-      this.subtotal_0 = null,
-      this.subtotal_12 = null,
-      this.iva = null,
-      this.subtotal = null,
-      this.total = null
+      this.sujeto_iva = null,
+      this.subtotal_0 = 0,
+      this.subtotal_12 = 0,
+      this.iva = 0,
+      this.totalPedido = null,
+      this.total = 0
     }
 
 }

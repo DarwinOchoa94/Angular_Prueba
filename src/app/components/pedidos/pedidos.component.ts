@@ -10,19 +10,24 @@ import { PedidoService } from 'src/app/services/pedido.service';
 export class PedidosComponent implements OnInit {
 
   cargando = false;
-  pedidos: PedidosModel[] = []
+  pedidos: PedidosModel[] = [];
+  pedidosLocal: PedidosModel[] = [];
 
   constructor(private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
-    localStorage.getItem('logeado')
+    this.pedidosLocal = JSON.parse(localStorage.getItem('arrPedidos')) 
     this.cargando = true;
     this.pedidoService.listar()
     .then((arrPedidos) =>{
-      this.pedidos = arrPedidos
-      this.cargando = false;
-      console.log(this.pedidos);
+      if (arrPedidos.length == 0){
+        this.pedidos = this.pedidosLocal
+        this.cargando = false;
+      }
+      else{
+        this.pedidos = arrPedidos
+        this.cargando = false;
+      }
     })
   }
-
 }
