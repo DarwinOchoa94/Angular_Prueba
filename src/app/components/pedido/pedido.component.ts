@@ -17,35 +17,31 @@ export class PedidoComponent implements OnInit {
   total_de_orden: number = 0;
   fecha_hora = new Date;
 
-  objPedido: any = {}
+  //objPedido: any = {}
 
   editField: string;
 
   pedidos: PedidosModel[] = [];
 
-  listaProducto: PedidoModel[] = []
+  listaProducto = new PedidoModel
+
+  detallePedido = new PedidoModel
 
   constructor(private pedidoService: PedidoService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  nuevo() {
-    var producto = this.listaProducto[0];
-    producto.id = this.listaProducto.length
-    this.listaProducto.push(producto);
-  }
-
   nuevoV2() {
-    var objPedido: any = {}
-    objPedido.id = this.listaProducto.length + 1
-    this.listaProducto.push(objPedido)
+    //var objPedido: any = {}
+    this.detallePedido.id = this.listaProducto.arrPedidos.length + 1
+    this.listaProducto.arrPedidos.push(this.listaProducto.arrPedidos[0])
   }
 
-  actualizarCliente(event: any) {
-    const editField = event.target.value;
-    this.objPedido.nombre_cliente = editField
-  }
+  // actualizarCliente(event: any) {
+  //   const editField = event.target.value;
+  //   this.objPedido.nombre_cliente = editField
+  // }
 
   actualizarLista(id: number, property: string, event: any) {
     const editField = event.target.textContent;
@@ -64,7 +60,7 @@ export class PedidoComponent implements OnInit {
   }
 
   eliminar(id: number) {
-    this.listaProducto.splice(id, 1)
+    this.listaProducto.arrPedidos.splice(id, 1)
   }
 
   calcularSubtotales(id: number, property: string) {
@@ -90,23 +86,23 @@ export class PedidoComponent implements OnInit {
 
   calcularTotales() {
     this.fecha_hora.toLocaleDateString();
-    this.listaProducto.forEach(element => {
-      this.valor_subtotal_0 += element.subtotal_0;
-      this.valor_subtotal_12 += element.subtotal_12;
-      this.total_de_orden = element.total + this.total_de_orden;
-    });
+    // this.listaProducto.forEach(element => {
+    //   this.valor_subtotal_0 += element.subtotal_0;
+    //   this.valor_subtotal_12 += element.subtotal_12;
+    //   this.total_de_orden = element.total + this.total_de_orden;
+    // });
   }
 
   llenarObjeto() {
-    this.pedidos[0] = {
-      id: null,
-      nombre_cliente: this.objPedido.nombre_cliente,
-      cantidad_productos_ingresados: this.listaProducto.length,
-      valor_subtotal_0: this.valor_subtotal_0,
-      valor_subtotal_12: this.valor_subtotal_12,
-      total_de_orden: this.total_de_orden,
-      fecha_hora: this.fecha_hora.toString(),
-    }
+    // this.pedidos[0] = {
+    //   id: null,
+    //   nombre_cliente: this.objPedido.nombre_cliente,
+    //   cantidad_productos_ingresados: this.listaProducto.length,
+    //   valor_subtotal_0: this.valor_subtotal_0,
+    //   valor_subtotal_12: this.valor_subtotal_12,
+    //   total_de_orden: this.total_de_orden,
+    //   fecha_hora: this.fecha_hora.toString(),
+    // }
   }
 
   guardar() {

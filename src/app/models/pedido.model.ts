@@ -1,7 +1,8 @@
+import { PedidosModel } from "./pedidos.model";
+
 export class PedidoModel {
 
     id: number;
-    nombre_cliente: string;
     nombre_producto: string;
     cantidad: number;
     precio: number;
@@ -10,11 +11,10 @@ export class PedidoModel {
     subtotal_12: number;
     iva: number;
     total: number;
-    totalPedido: number;
+    arrPedidos : Array<PedidosModel>
 
     constructor() {
       this.id = null,
-      this.nombre_cliente = null,
       this.nombre_producto = null,
       this.cantidad = null,
       this.precio = null,
@@ -22,8 +22,8 @@ export class PedidoModel {
       this.subtotal_0 = 0,
       this.subtotal_12 = 0,
       this.iva = 0,
-      this.totalPedido = null,
       this.total = 0
+      this.arrPedidos = new Array<PedidosModel>();
     }
 
 }

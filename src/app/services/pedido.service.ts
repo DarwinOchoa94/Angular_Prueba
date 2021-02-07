@@ -12,7 +12,7 @@ export class PedidoService {
     this.arrPedidos = []
    }
 
-   crearPedido(pedido): any{
+   crearPedido(pedido){
     this.arrPedidos.push(pedido);
     localStorage.setItem('arrPedidos', JSON.stringify(this.arrPedidos))
   }
