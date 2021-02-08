@@ -42,7 +42,9 @@ export class PedidoComponent implements OnInit {
     }
     else if (property == 'nombre_cliente'){
       const editField = event.target.value;
-      this.arrCabezeraPedido[property] = editField;
+      this.cabeceraPedido.nombre_cliente = editField
+      console.log(this.cabeceraPedido);
+      
     }
     else{
       const editField = event.target.value;

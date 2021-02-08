@@ -17,14 +17,19 @@ export class ListaPedidosComponent implements OnInit {
 
   ngOnInit(): void {
     this.pedidosLocal = JSON.parse(localStorage.getItem('arrPedidos')) 
+    console.log(this.pedidosLocal);
     this.cargando = true;
     this.pedidoService.listar()
     .then((arrPedidos) =>{
-      if (arrPedidos.length < 0){
+      if (arrPedidos.length == 0){
+        console.log("en true");
+        
         this.pedidos = this.pedidosLocal
         this.cargando = false;
       }
       else{
+        console.log("en false");
+        
         this.pedidos = arrPedidos
         this.cargando = false;
       }

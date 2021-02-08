@@ -6,10 +6,10 @@
         <div id="table" class="table-editable">
             <span class="table-add float-right mb-3 mr-2">
                 <button class="btn btn-primary mr-2" (click)="nuevoV2()">Nuevo</button>
-                <button class="btn btn-danger" routerLink="/pedidos"><i class="fa fa-arrow-left"></i>Regresar</button>
+                <button class="btn btn-danger" routerLink="/lista-pedidos"><i class="fa fa-arrow-left"></i>Regresar</button>
             </span>
             <span class="table-add float-left mb-3 mr-2">
-                <input class="form-control" type="text" placeholder="nombre_cliente" (blur)="actualizarListaV3('nombre_producto', $event)" >
+                <input class="form-control" type="text" placeholder="nombre_cliente" (blur)="actualizarListaV3(null, 'nombre_cliente', $event)" >
             </span>
             <table class="table table-bordered table-responsive-md table-striped text-center">
                 <tr>
