@@ -24,24 +24,24 @@
                     <th class="text-center">total</th>
                     <th class="text-center">acciones</th>
                 </tr>
-                <tr *ngFor="let producto of listaProducto; let id = index">
+                <tr *ngFor="let producto of arrDetallePedido; let id = index">
                     <td>
                         <span contenteditable="false">{{producto.id}}</span>
                     </td>
                     <td>
-                        <input class="form-control-sm" type="text" placeholder="nombre_producto" (blur)="actualizarListaV2(id, 'nombre_producto', $event)">
+                        <input class="form-control-sm" type="text" placeholder="nombre_producto" (blur)="actualizarListaV3(id, 'nombre_producto', $event)">
                     </td>
                     <td>
                         <input class="form-control-sm " type="number" placeholder="cantidad" 
-                        (blur)="actualizarListaV2(id, 'cantidad', $event); calcularSubtotales(id, 'subtotal_0', $event)">
+                        (blur)="actualizarListaV3(id, 'cantidad', $event); calcularSubtotales(id, 'subtotal_0', $event)">
                     </td>
                     <td>
                         <input class="form-control-sm" type="number" placeholder="precio" 
-                        (blur)="actualizarListaV2(id, 'precio', $event); calcularSubtotales(id, 'subtotal_0', $event)">
+                        (blur)="actualizarListaV3(id, 'precio', $event); calcularSubtotales(id, 'subtotal_0', $event)">
                     </td>
                     <td>
                         <input class="form-control" type="checkbox" 
-                        (click)="actualizarListaV2(id, 'sujeto_iva', $event); calcularSubtotales(id, 'subtotal_12', $event)">
+                        (click)="actualizarListaV3(id, 'sujeto_iva', $event); calcularSubtotales(id, 'subtotal_12', $event)">
                     </td>
                     <td>
                         <span contenteditable="false">{{producto.subtotal_0}}</span>

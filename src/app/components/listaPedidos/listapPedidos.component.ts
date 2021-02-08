@@ -3,11 +3,11 @@ import { PedidosModel } from 'src/app/models/pedidos.model';
 import { PedidoService } from 'src/app/services/pedido.service';
 
 @Component({
-  selector: 'app-pedidos',
-  templateUrl: './pedidos.component.html',
-  styleUrls: ['./pedidos.component.css']
+  selector: 'app-listapPedidos',
+  templateUrl: './listapPedidos.component.html',
+  styleUrls: ['./listapPedidos.component.css']
 })
-export class PedidosComponent implements OnInit {
+export class ListaPedidosComponent implements OnInit {
 
   cargando = false;
   pedidos: PedidosModel[] = [];

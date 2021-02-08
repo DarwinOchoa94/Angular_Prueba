@@ -12,20 +12,18 @@ import Swal from 'sweetalert2';
 })
 export class PedidoComponent implements OnInit {
 
+  //DETALLE PEDIDO
+  detallePedido = new PedidoModel;
+  arrDetallePedido = new Array;
+
   valor_subtotal_0: number = 0;
   valor_subtotal_12: number = 0;
   total_de_orden: number = 0;
   fecha_hora = new Date;
 
-  //objPedido: any = {}
-
   editField: string;
 
   pedidos: PedidosModel[] = [];
-
-  listaProducto = new PedidoModel
-
-  detallePedido = new PedidoModel
 
   constructor(private pedidoService: PedidoService, private router: Router) { }
 
@@ -34,8 +32,11 @@ export class PedidoComponent implements OnInit {
 
   nuevoV2() {
     //var objPedido: any = {}
-    this.detallePedido.id = this.listaProducto.arrPedidos.length + 1
-    this.listaProducto.arrPedidos.push(this.listaProducto.arrPedidos[0])
+    console.log(this.detallePedido);
+    this.detallePedido.id = this.arrDetallePedido.length +1
+    this.arrDetallePedido.push(this.detallePedido)
+    console.log(this.arrDetallePedido);
+    
   }
 
   // actualizarCliente(event: any) {
@@ -43,44 +44,39 @@ export class PedidoComponent implements OnInit {
   //   this.objPedido.nombre_cliente = editField
   // }
 
-  actualizarLista(id: number, property: string, event: any) {
-    const editField = event.target.textContent;
-    this.listaProducto[id][property] = editField;
-  }
-
-  actualizarListaV2(id: number, property: string, event: any) {
+  actualizarListaV3(id: number, property: string, event: any) {
     if (property == 'sujeto_iva') {
       const editField = event.target.checked;
-      this.listaProducto[id][property] = editField;
+      this.arrDetallePedido[id][property] = editField;
     }
     else {
       const editField = event.target.value;
-      this.listaProducto[id][property] = editField;
+      this.arrDetallePedido[id][property] = editField;
     }
   }
 
   eliminar(id: number) {
-    this.listaProducto.arrPedidos.splice(id, 1)
+    this.arrDetallePedido.splice(id, 1)
   }
 
-  calcularSubtotales(id: number, property: string) {
-    if (this.listaProducto[id].sujeto_iva == true) {
-      if(this.listaProducto[id].subtotal_0 != null){
-        this.listaProducto[id].subtotal_0 = 0;
+  calcularSubtotales(id: number) {
+    if (this.arrDetallePedido[id].sujeto_iva == true) {
+      if(this.arrDetallePedido[id].subtotal_0 != null){
+        this.arrDetallePedido[id].subtotal_0 = 0;
       }
-      this.listaProducto[id].subtotal_12 = this.listaProducto[id].precio * this.listaProducto[id].cantidad;
-      this.listaProducto[id].iva = this.listaProducto[id].subtotal_12 * 0.12;
-      this.listaProducto[id].total = this.listaProducto[id].subtotal_12 + this.listaProducto[id].iva;
+      this.arrDetallePedido[id].subtotal_12 = this.arrDetallePedido[id].precio * this.arrDetallePedido[id].cantidad;
+      this.arrDetallePedido[id].iva = this.arrDetallePedido[id].subtotal_12 * 0.12;
+      this.arrDetallePedido[id].total = this.arrDetallePedido[id].subtotal_12 + this.arrDetallePedido[id].iva;
     }
     else {
-      if(this.listaProducto[id].subtotal_12 != null){
-        this.listaProducto[id].subtotal_12 = 0;
-        this.listaProducto[id].iva = 0;
+      if(this.arrDetallePedido[id].subtotal_12 != null){
+        this.arrDetallePedido[id].subtotal_12 = 0;
+        this.arrDetallePedido[id].iva = 0;
       }
-      this.listaProducto[id].subtotal_0 = this.listaProducto[id].precio * this.listaProducto[id].cantidad;
-      this.listaProducto[id].total = this.listaProducto[id].subtotal_0;
-      this.listaProducto[id].subtotal_12 = 0;
-      this.listaProducto[id].iva = 0;
+      this.arrDetallePedido[id].subtotal_0 = this.arrDetallePedido[id].precio * this.arrDetallePedido[id].cantidad;
+      this.arrDetallePedido[id].total = this.arrDetallePedido[id].subtotal_0;
+      this.arrDetallePedido[id].subtotal_12 = 0;
+      this.arrDetallePedido[id].iva = 0;
     }
   }
 
@@ -117,7 +113,7 @@ export class PedidoComponent implements OnInit {
     this.calcularTotales();
     this.llenarObjeto();
     this.pedidoService.crearPedido(this.pedidos[0])
-    this.router.navigate(['/pedidos'])
+    this.router.navigate(['/lista-pedidos'])
     Swal.fire({
       text: 'Se guardo correctamente',
       type: 'success'

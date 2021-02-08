@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.valido = this.loginService.login(this.form.usuario.value, this.form.contrasena.value)
     if (this.valido == 'ok'){
-      this.router.navigate(['/pedidos'])
+      this.router.navigate(['/lista-pedidos'])
       this.loading = false;  
     }
     else{
@@ -55,8 +55,9 @@ export class LoginComponent implements OnInit {
         title: 'Error',
         text: 'Usuario o Contraseña Incorrecta',
         type: 'error',
-        allowOutsideClick: false
+        allowOutsideClick: false,
       });
+      this.loading = false;  
     }
   }
 }
