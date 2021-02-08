@@ -16,14 +16,12 @@ export class PedidoComponent implements OnInit {
   detallePedido = new PedidoModel;
   arrDetallePedido = new Array;
 
-  valor_subtotal_0: number = 0;
-  valor_subtotal_12: number = 0;
-  total_de_orden: number = 0;
-  fecha_hora = new Date;
+  //CABECERA PEDIDO
+  cabeceraPedido = new PedidosModel;
+  arrCabezeraPedido = new Array;
+  fecha_hora = new Date
 
   editField: string;
-
-  pedidos: PedidosModel[] = [];
 
   constructor(private pedidoService: PedidoService, private router: Router) { }
 
@@ -31,25 +29,22 @@ export class PedidoComponent implements OnInit {
   }
 
   nuevoV2() {
-    //var objPedido: any = {}
     console.log(this.detallePedido);
     this.detallePedido.id = this.arrDetallePedido.length +1
     this.arrDetallePedido.push(this.detallePedido)
-    console.log(this.arrDetallePedido);
-    
+    console.log(this.arrDetallePedido); 
   }
-
-  // actualizarCliente(event: any) {
-  //   const editField = event.target.value;
-  //   this.objPedido.nombre_cliente = editField
-  // }
 
   actualizarListaV3(id: number, property: string, event: any) {
     if (property == 'sujeto_iva') {
       const editField = event.target.checked;
       this.arrDetallePedido[id][property] = editField;
     }
-    else {
+    else if (property == 'nombre_cliente'){
+      const editField = event.target.value;
+      this.arrCabezeraPedido[property] = editField;
+    }
+    else{
       const editField = event.target.value;
       this.arrDetallePedido[id][property] = editField;
     }
@@ -81,28 +76,26 @@ export class PedidoComponent implements OnInit {
   }
 
   calcularTotales() {
-    this.fecha_hora.toLocaleDateString();
-    // this.listaProducto.forEach(element => {
-    //   this.valor_subtotal_0 += element.subtotal_0;
-    //   this.valor_subtotal_12 += element.subtotal_12;
-    //   this.total_de_orden = element.total + this.total_de_orden;
-    // });
-  }
-
-  llenarObjeto() {
-    // this.pedidos[0] = {
-    //   id: null,
-    //   nombre_cliente: this.objPedido.nombre_cliente,
-    //   cantidad_productos_ingresados: this.listaProducto.length,
-    //   valor_subtotal_0: this.valor_subtotal_0,
-    //   valor_subtotal_12: this.valor_subtotal_12,
-    //   total_de_orden: this.total_de_orden,
-    //   fecha_hora: this.fecha_hora.toString(),
-    // }
+    let stringFecha: string = this.fecha_hora.toISOString();
+    this.arrDetallePedido.forEach(element => {
+      this.cabeceraPedido.valor_subtotal_0 += element.subtotal_0;
+      this.cabeceraPedido.valor_subtotal_12 += element.subtotal_12;
+      this.cabeceraPedido.total_de_orden += element.total;
+    });
+    this.cabeceraPedido = {
+      id: this.arrCabezeraPedido.length + 1,
+      nombre_cliente: this.cabeceraPedido.nombre_cliente,
+      cantidad_productos_ingresados: this.arrDetallePedido.length,
+      valor_subtotal_0: this.cabeceraPedido.valor_subtotal_0,
+      valor_subtotal_12: this.cabeceraPedido.valor_subtotal_12,
+      total_de_orden: this.cabeceraPedido.total_de_orden,
+      fecha_hora: stringFecha
+    }
+    console.log(this.cabeceraPedido);
+    
   }
 
   guardar() {
-
     Swal.fire({
       title: 'Espere',
       text: 'Guardando información',
@@ -111,8 +104,7 @@ export class PedidoComponent implements OnInit {
     });
     Swal.showLoading();
     this.calcularTotales();
-    this.llenarObjeto();
-    this.pedidoService.crearPedido(this.pedidos[0])
+    this.pedidoService.crearPedido(this.cabeceraPedido)
     this.router.navigate(['/lista-pedidos'])
     Swal.fire({
       text: 'Se guardo correctamente',

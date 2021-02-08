@@ -3,9 +3,9 @@ import { PedidosModel } from 'src/app/models/pedidos.model';
 import { PedidoService } from 'src/app/services/pedido.service';
 
 @Component({
-  selector: 'app-listapPedidos',
-  templateUrl: './listapPedidos.component.html',
-  styleUrls: ['./listapPedidos.component.css']
+  selector: 'app-listaPedidos',
+  templateUrl: './listaPedidos.component.html',
+  styleUrls: ['./listaPedidos.component.css']
 })
 export class ListaPedidosComponent implements OnInit {
 

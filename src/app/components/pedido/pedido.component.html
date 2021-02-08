@@ -9,7 +9,7 @@
                 <button class="btn btn-danger" routerLink="/pedidos"><i class="fa fa-arrow-left"></i>Regresar</button>
             </span>
             <span class="table-add float-left mb-3 mr-2">
-                <input class="form-control" type="text" placeholder="nombre_cliente" >
+                <input class="form-control" type="text" placeholder="nombre_cliente" (blur)="actualizarListaV3('nombre_producto', $event)" >
             </span>
             <table class="table table-bordered table-responsive-md table-striped text-center">
                 <tr>

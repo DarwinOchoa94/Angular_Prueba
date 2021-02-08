@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { ListaPedidosComponent } from './components/listaPedidos/listapPedidos.component';
+import { ListaPedidosComponent } from './components/listaPedidos/listaPedidos.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 
 @NgModule({

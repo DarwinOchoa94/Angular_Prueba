@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
-import { ListaPedidosComponent } from './components/listaPedidos/listapPedidos.component';
+import { ListaPedidosComponent } from './components/listaPedidos/listaPedidos.component';
 
 const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo:'login'},
