@@ -4,71 +4,80 @@
 
         <div id="login-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
 
-            <div class="logo">
+            <!-- <div class="logo">
                 <img src="assets/images/logos/fuse.svg">
-            </div>
+            </div> -->
 
-            <div class="title">LOGIN TO YOUR ACCOUNT</div>
+            <div class="title">INGRESAR A SU CUENTA</div>
 
             <form name="loginForm" [formGroup]="loginForm" novalidate>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email">
-                    <mat-icon matSuffix class="secondary-text">mail</mat-icon>
-                    <mat-error *ngIf="loginForm.get('email').hasError('required')">
-                        Email is required
-                    </mat-error>
-                    <mat-error
-                        *ngIf="!loginForm.get('email').hasError('required') &&
-                                loginForm.get('email').hasError('email')">
-                        Please enter a valid email address
-                    </mat-error>
+                    <mat-label>Empresa</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">
+                            {{empresa.nombre_empresa}}
+                        </mat-option>
+                      </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
+                    <mat-label>Usuario</mat-label>
+                    <input matInput formControlName="usuario">
+                    <mat-icon matSuffix class="secondary-text">person</mat-icon>
+                    <mat-error *ngIf="loginForm.get('usuario').hasError('required')">
+                        Usuario es requerido
+                    </mat-error>
+                    <!-- <mat-error
+                        *ngIf="!loginForm.get('email').hasError('required') &&
+                                loginForm.get('email').hasError('email')">
+                        Please enter a valid email address
+                    </mat-error> -->
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Contraseña</mat-label>
                     <input matInput type="password" formControlName="password">
                     <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
                     <mat-error>
-                        Password is required
+                        Contraseña es requerida
                     </mat-error>
                 </mat-form-field>
 
                 <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
                      fxLayoutAlign="space-between center">
-                    <mat-checkbox class="remember-me" aria-label="Remember Me">
+                    <!-- <mat-checkbox class="remember-me" aria-label="Remember Me">
                         Remember Me
-                    </mat-checkbox>
+                    </mat-checkbox> -->
 
                     <a class="forgot-password" [routerLink]="'/pages/auth/forgot-password'">
-                        Forgot Password?
+                        Olvidó su contraseña?
                     </a>
                 </div>
 
                 <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
                         [disabled]="loginForm.invalid">
-                    LOGIN
+                    INGRESAR
                 </button>
 
             </form>
 
-            <div class="separator">
+            <!-- <div class="separator">
                 <span class="text">OR</span>
-            </div>
+            </div> -->
 
             <button mat-raised-button class="google">
-                Log in with Google
+                Ingreso con Google
             </button>
 
-            <button mat-raised-button class="facebook">
+            <!-- <button mat-raised-button class="facebook">
                 Log in with Facebook
-            </button>
+            </button> -->
 
-            <div class="register" fxLayout="column" fxLayoutAlign="center center">
-                <span class="text">Don't have an account?</span>
-                <a class="link" [routerLink]="'/pages/auth/register'">Create an account</a>
-            </div>
+            <!-- <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">No tiene cuenta?</span>
+                <a class="link" [routerLink]="'/pages/auth/register'">Registrarse</a>
+            </div> -->
 
         </div>
 

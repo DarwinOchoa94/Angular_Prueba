@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 
+import { EmpresaModel } from 'app/main/models/Seguridad/Empresa/empresa.model'
+import { LoginService } from 'app/main/services/authentication/login.service';
+
 @Component({
     selector     : 'login',
     templateUrl  : './login.component.html',
@@ -14,6 +17,8 @@ import { fuseAnimations } from '@fuse/animations';
 export class LoginComponent implements OnInit
 {
     loginForm: FormGroup;
+    empresas = new EmpresaModel();
+    arrEmpresas: Array<object> = [];
 
     /**
      * Constructor
@@ -23,7 +28,8 @@ export class LoginComponent implements OnInit
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private loginService: LoginService,
     )
     {
         // Configure the layout
@@ -55,8 +61,19 @@ export class LoginComponent implements OnInit
     ngOnInit(): void
     {
         this.loginForm = this._formBuilder.group({
-            email   : ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required]
+            usuario     : ['', Validators.required],
+            //empresa     : ['', Validators.required],
+            //email     : ['', [Validators.required, Validators.email]],
+            password    : ['', Validators.required]
         });
+        this.obtenerPais;
+        this.loginService
+    }
+
+    obtenerPais(){
+        let utc = new Date
+        utc.getDate;
+        console.log(utc);
+        
     }
 }
