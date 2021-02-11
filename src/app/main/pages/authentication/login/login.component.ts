@@ -6,6 +6,7 @@ import { fuseAnimations } from '@fuse/animations';
 
 import { EmpresaModel } from 'app/main/models/Seguridad/Empresa/empresa.model'
 import { LoginService } from 'app/main/services/authentication/login.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
     selector     : 'login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit
 {
     loginForm: FormGroup;
     empresas = new EmpresaModel();
-    arrEmpresas: Array<object> = [];
+    arrEmpresas: Array<EmpresaModel> = [];
 
     /**
      * Constructor
@@ -61,19 +62,26 @@ export class LoginComponent implements OnInit
     ngOnInit(): void
     {
         this.loginForm = this._formBuilder.group({
+            empresa     : ['', Validators.required],
             usuario     : ['', Validators.required],
             //empresa   : ['', Validators.required],
             //email     : ['', [Validators.required, Validators.email]],
             password    : ['', Validators.required]
         });
-       
+
         this.loginService.obtenerPais().subscribe(data => {
             this.empresas.nombre_pais = data['country_name']
             console.log(this.empresas.nombre_pais);
             this.loginService.obtenerEmpresas(this.empresas.nombre_pais).subscribe(data => {
-                //this.arrEmpresas = data
+                this.arrEmpresas = data
+                console.log(this.arrEmpresas);              
             })
         });
+    }
+
+    ingresar(){
+        console.log(this.loginForm.value);
+        
     }
 
 }

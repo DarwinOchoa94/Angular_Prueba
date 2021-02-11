@@ -14,8 +14,8 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Empresa</mat-label>
-                    <mat-select>
-                        <mat-option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">
+                    <mat-select formControlName="empresa">
+                        <mat-option *ngFor="let empresa of arrEmpresas" [value]="empresa.nombre_empresa">
                             {{empresa.nombre_empresa}}
                         </mat-option>
                       </mat-select>
@@ -55,7 +55,7 @@
                     </a>
                 </div>
 
-                <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                <button mat-raised-button color="accent" class="submit-button" (click)="ingresar()" aria-label="LOG IN"
                         [disabled]="loginForm.invalid">
                     INGRESAR
                 </button>

@@ -17,9 +17,9 @@
                 </div>
             </div>
 
-            <div class="px-8 px-md-16">
+            <!-- <div class="px-8 px-md-16">
                 <fuse-shortcuts [navigation]="navigation"></fuse-shortcuts>
-            </div>
+            </div> -->
 
         </div>
 
@@ -28,7 +28,7 @@
             <button mat-button [matMenuTriggerFor]="userMenu"
                     class="user-button">
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <img class="avatar mr-0 mr-sm-16" src="assets/images/avatars/Velazquez.jpg">
+                    <img class="avatar mr-0 mr-sm-16" src="assets/images/avatars/profile.jpg">
                     <span class="username mr-12" fxHide fxShow.gt-sm>Charlie Adams</span>
                     <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
                 </div>
@@ -41,10 +41,10 @@
                     <span>My Profile</span>
                 </button>
 
-                <button mat-menu-item class="">
+                <!-- <button mat-menu-item class="">
                     <mat-icon>mail</mat-icon>
                     <span>Inbox</span>
-                </button>
+                </button> -->
 
                 <button mat-menu-item class="">
                     <mat-icon>exit_to_app</mat-icon>
@@ -53,7 +53,7 @@
 
             </mat-menu>
 
-            <div class="toolbar-separator"></div>
+            <!-- <div class="toolbar-separator"></div>
 
             <fuse-search-bar (input)="search($event)"></fuse-search-bar>
 
@@ -93,7 +93,7 @@
             <button mat-icon-button class="navbar-toggle-button"
                     *ngIf="!hiddenNavbar && rightNavbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
                 <mat-icon class="secondary-text">menu</mat-icon>
-            </button>
+            </button> -->
 
         </div>
 

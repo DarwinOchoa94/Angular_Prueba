@@ -1,14 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs/';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private url = '';
+  private url = 'http://10.150.200.77';
 
   constructor(private http: HttpClient) {
   }
@@ -26,11 +26,13 @@ export class LoginService {
       );
   }
 
-  obtenerEmpresas(params: any) {
-    console.log(params);
+  obtenerEmpresas(nombre_pais: string) {
+    //console.log(params);
     return this.http
-      .post(`${this.url}`, { params })
+      .get(`${this.url}/seguridad/empresa/nombrePais=${nombre_pais}`)   
       .pipe(
+        map(response => response['data']),
+        //tap(users => console.log("users array", users)),
         catchError(this.handleError)
       );
   }
