@@ -62,18 +62,18 @@ export class LoginComponent implements OnInit
     {
         this.loginForm = this._formBuilder.group({
             usuario     : ['', Validators.required],
-            //empresa     : ['', Validators.required],
+            //empresa   : ['', Validators.required],
             //email     : ['', [Validators.required, Validators.email]],
             password    : ['', Validators.required]
         });
-        this.obtenerPais;
-        this.loginService
+       
+        this.loginService.obtenerPais().subscribe(data => {
+            this.empresas.nombre_pais = data['country_name']
+            console.log(this.empresas.nombre_pais);
+            this.loginService.obtenerEmpresas(this.empresas.nombre_pais).subscribe(data => {
+                //this.arrEmpresas = data
+            })
+        });
     }
 
-    obtenerPais(){
-        let utc = new Date
-        utc.getDate;
-        console.log(utc);
-        
-    }
 }
