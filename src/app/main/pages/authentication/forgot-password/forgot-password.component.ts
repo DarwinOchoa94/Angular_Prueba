@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 
+import { ActivatedRoute } from '@angular/router';
+import { ForgotPassword } from '../../../models/Seguridad/Login/forgotPassword.model'
+
 @Component({
     selector     : 'forgot-password',
     templateUrl  : './forgot-password.component.html',
@@ -15,6 +18,8 @@ export class ForgotPasswordComponent implements OnInit
 {
     forgotPasswordForm: FormGroup;
 
+    forgotPassword: ForgotPassword;
+
     /**
      * Constructor
      *
@@ -23,7 +28,8 @@ export class ForgotPasswordComponent implements OnInit
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private rutaActiva: ActivatedRoute
     )
     {
         // Configure the layout
@@ -57,5 +63,13 @@ export class ForgotPasswordComponent implements OnInit
         this.forgotPasswordForm = this._formBuilder.group({
             email: ['', [Validators.required, Validators.email]]
         });
+
+        this.forgotPassword = {
+            usuario: this.rutaActiva.snapshot.params.usuario,
+            email: this.forgotPasswordForm.value['email'] ,
+        }
+
+        console.log(this.forgotPassword);
+        
     }
 }

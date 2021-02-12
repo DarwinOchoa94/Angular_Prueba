@@ -15,7 +15,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Empresa</mat-label>
                     <mat-select formControlName="empresa">
-                        <mat-option *ngFor="let empresa of arrEmpresas" [value]="empresa.nombre_empresa">
+                        <mat-option *ngFor="let empresa of arrEmpresas" [value]="empresa.id_empresa">
                             {{empresa.nombre_empresa}}
                         </mat-option>
                       </mat-select>

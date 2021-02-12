@@ -8,7 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class LoginService {
 
-  private url = 'http://10.150.200.77';
+  private url = 'http://10.150.200.106';
 
   constructor(private http: HttpClient) {
   }
@@ -29,7 +29,17 @@ export class LoginService {
   obtenerEmpresas(nombre_pais: string) {
     //console.log(params);
     return this.http
-      .get(`${this.url}/seguridad/empresa/nombrePais=${nombre_pais}`)   
+      .get(`${this.url}/seguridad/empresa/nombrePais=${nombre_pais}`)
+      .pipe(
+        map(response => response['data']),
+        //tap(users => console.log("users array", users)),
+        catchError(this.handleError)
+      );
+  }
+
+  login(params: object) {
+    return this.http
+      .post(`${this.url}/seguridad/login`, { params })
       .pipe(
         map(response => response['data']),
         //tap(users => console.log("users array", users)),

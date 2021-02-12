@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 import { FuseConfigService } from '@fuse/services/config.service';
+import { ResetPassword} from '../../../models/Seguridad/Login/resetPassword.model';
 import { fuseAnimations } from '@fuse/animations';
 
 @Component({
@@ -70,6 +72,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy
             .subscribe(() => {
                 this.resetPasswordForm.get('passwordConfirm').updateValueAndValidity();
             });
+
     }
 
     /**
